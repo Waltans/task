@@ -10,14 +10,22 @@ import discord4j.core.object.entity.channel.MessageChannel;
 /**
  * Дискорд бот
  */
-public class DiscordBot {
+public class DiscordBot implements Bot {
 
     private final String token;
 
     private GatewayDiscordClient client;
 
+    private final MessageService messageService;
+
+    /**
+     * Конструктор бота для дискорда
+     * @param token - токен
+     * А также инжектиться messageService
+     */
     public DiscordBot(String token) {
         this.token = token;
+        this.messageService = new MessageServiceImpl();
     }
 
     public void start() {
@@ -34,18 +42,15 @@ public class DiscordBot {
                     if (eventMessage.getAuthor().map(user -> !user.isBot()).orElse(false)) {
                         String chatId = eventMessage.getChannelId().asString();
                         String messageFromUser = eventMessage.getContent();
-                        // TODO обработайте сообщение от пользователя (messageFromUser)
+
+                        String message = messageService.prepareMessage(messageFromUser);
+                        sendMessage(chatId, message);
                     }
                 });
         System.out.println("Discord бот запущен");
         client.onDisconnect().block();
     }
 
-    /**
-     * Отправить сообщение
-     * @param chatId идентификатор чата
-     * @param message текст сообщения
-     */
     public void sendMessage(String chatId, String message) {
         Snowflake channelId = Snowflake.of(chatId);
         MessageChannel channel = client.getChannelById(channelId).ofType(MessageChannel.class).block();
