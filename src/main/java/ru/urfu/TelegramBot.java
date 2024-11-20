@@ -11,7 +11,7 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 /**
  * Телеграм бот
  */
-public class TelegramBot extends TelegramLongPollingBot implements Bot {
+public class TelegramBot extends TelegramLongPollingBot {
 
     private final String telegramBotName;
     private final MessageService messageService;
@@ -21,12 +21,12 @@ public class TelegramBot extends TelegramLongPollingBot implements Bot {
      *
      * @param telegramBotName - название бота
      * @param token           - токен бота
-     * А также инжектиться messageService
+     *                        А также инжектиться messageService
      */
     public TelegramBot(String telegramBotName, String token) {
         super(token);
         this.telegramBotName = telegramBotName;
-        this.messageService = new MessageServiceImpl();
+        this.messageService = new MessageService();
     }
 
     public void start() {

@@ -10,7 +10,7 @@ import discord4j.core.object.entity.channel.MessageChannel;
 /**
  * Дискорд бот
  */
-public class DiscordBot implements Bot {
+public class DiscordBot {
 
     private final String token;
 
@@ -20,12 +20,13 @@ public class DiscordBot implements Bot {
 
     /**
      * Конструктор бота для дискорда
+     *
      * @param token - токен
-     * А также инжектиться messageService
+     *              А также инжектиться messageService
      */
     public DiscordBot(String token) {
         this.token = token;
-        this.messageService = new MessageServiceImpl();
+        this.messageService = new MessageService();
     }
 
     public void start() {

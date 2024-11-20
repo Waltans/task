@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
- * Тестовый класс для проверки MessageServiceImpl
+ * Тестовый класс для проверки MessageService
  */
-class MessageServiceImplTest {
-    private final MessageService service = new MessageServiceImpl();
+class MessageServiceTest {
+    private final MessageService service = new MessageService();
 
     /**
      * Тест проверяет, что при обработке сообщений, сервис выдает нужный результат

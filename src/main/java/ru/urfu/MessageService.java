@@ -1,15 +1,15 @@
 package ru.urfu;
 
 /**
- * Сервис по работе с сообщениями
+ * Сервис для обработки сообщений
  */
-public interface MessageService {
-
+public class MessageService {
     /**
-     * Обработка сообщение
-     *
-     * @param message - сообщение от пользователя
-     * @return - обработанное сообщение
+     * Обработка сообщения
+     * @param message - сообщение, которое нам поступило
+     * @return - "Ваше сообщение: " + message
      */
-    String prepareMessage(String message);
+    public String prepareMessage(String message) {
+        return String.format("Ваше сообщение: %s", message);
+    }
 }
