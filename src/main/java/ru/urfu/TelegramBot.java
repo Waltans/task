@@ -14,19 +14,19 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 public class TelegramBot extends TelegramLongPollingBot {
 
     private final String telegramBotName;
-    private final MessageService messageService;
+    private final MessageCreateService messageCreateService;
 
     /**
      * Конструктор
      *
      * @param telegramBotName - название бота
      * @param token           - токен бота
-     *                        А также инжектиться messageService
+     * @param messageCreateService  - сервис по работе с сообщениями
      */
-    public TelegramBot(String telegramBotName, String token) {
+    public TelegramBot(String telegramBotName, String token, MessageCreateService messageCreateService) {
         super(token);
         this.telegramBotName = telegramBotName;
-        this.messageService = new MessageService();
+        this.messageCreateService = messageCreateService;
     }
 
     public void start() {
@@ -46,7 +46,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             String chatId = updateMessage.getChatId().toString();
             String messageFromUser = updateMessage.getText();
 
-            String message = messageService.prepareMessage(messageFromUser);
+            String message = messageCreateService.createMessage(messageFromUser);
             sendMessage(chatId, message);
         }
     }

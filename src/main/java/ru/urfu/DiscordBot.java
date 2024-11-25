@@ -16,17 +16,17 @@ public class DiscordBot {
 
     private GatewayDiscordClient client;
 
-    private final MessageService messageService;
+    private final MessageCreateService messageCreateService;
 
     /**
      * Конструктор бота для дискорда
      *
      * @param token - токен
-     *              А также инжектиться messageService
+     *              А также инжектиться messageCreateService
      */
-    public DiscordBot(String token) {
+    public DiscordBot(String token, MessageCreateService messageCreateService) {
         this.token = token;
-        this.messageService = new MessageService();
+        this.messageCreateService = messageCreateService;
     }
 
     public void start() {
@@ -44,7 +44,7 @@ public class DiscordBot {
                         String chatId = eventMessage.getChannelId().asString();
                         String messageFromUser = eventMessage.getContent();
 
-                        String message = messageService.prepareMessage(messageFromUser);
+                        String message = messageCreateService.createMessage(messageFromUser);
                         sendMessage(chatId, message);
                     }
                 });
@@ -52,6 +52,11 @@ public class DiscordBot {
         client.onDisconnect().block();
     }
 
+    /**
+     * Отправить сообщение
+     * @param chatId идентификатор чата
+     * @param message текст сообщения
+     */
     public void sendMessage(String chatId, String message) {
         Snowflake channelId = Snowflake.of(chatId);
         MessageChannel channel = client.getChannelById(channelId).ofType(MessageChannel.class).block();

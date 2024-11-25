@@ -4,19 +4,19 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
- * Тестовый класс для проверки MessageService
+ * Тестовый класс для проверки MessageCreateService
  */
-class MessageServiceTest {
-    private final MessageService service = new MessageService();
+class MessageCreateServiceTest {
+    private final MessageCreateService service = new MessageCreateService();
 
     /**
      * Тест проверяет, что при обработке сообщений, сервис выдает нужный результат
      */
     @Test
-    void prepareMessageTest() {
+    void createMessageTest() {
         String firstMessage = "Hello World!";
 
-        String result = service.prepareMessage(firstMessage);
+        String result = service.createMessage(firstMessage);
 
         Assertions.assertEquals("Ваше сообщение: Hello World!", result);
     }
