@@ -16,8 +16,17 @@ public class DiscordBot {
 
     private GatewayDiscordClient client;
 
-    public DiscordBot(String token) {
+    private final MessageCreateService messageCreateService;
+
+    /**
+     * Конструктор бота для дискорда
+     *
+     * @param token - токен
+     *              А также инжектиться messageCreateService
+     */
+    public DiscordBot(String token, MessageCreateService messageCreateService) {
         this.token = token;
+        this.messageCreateService = messageCreateService;
     }
 
     public void start() {
@@ -34,7 +43,9 @@ public class DiscordBot {
                     if (eventMessage.getAuthor().map(user -> !user.isBot()).orElse(false)) {
                         String chatId = eventMessage.getChannelId().asString();
                         String messageFromUser = eventMessage.getContent();
-                        // TODO обработайте сообщение от пользователя (messageFromUser)
+
+                        String message = messageCreateService.createMessage(messageFromUser);
+                        sendMessage(chatId, message);
                     }
                 });
         System.out.println("Discord бот запущен");

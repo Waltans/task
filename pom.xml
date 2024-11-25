@@ -15,6 +15,7 @@
 
         <telegrambots.version>6.9.7.1</telegrambots.version>
         <discord4j.version>3.2.6</discord4j.version>
+        <junit-jupiter.version>5.8.1</junit-jupiter.version>
     </properties>
 
     <dependencies>
@@ -28,6 +29,12 @@
         <dependency>
             <groupId>com.discord4j</groupId>
             <artifactId>discord4j-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit-jupiter.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
